@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карусель изображений с формой</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Моя карусель изображений</h1>
+    
+    <div id="imageCarousel"></div>
+    
+    <div class="form-container">
+        <h2>Форма регистрации</h2>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="name">Имя:</label>
+                <input type="text" id="name" name="name" required>
+                <span class="error-message" id="nameError"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <span class="error-message" id="emailError"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" required>
+                <span class="error-message" id="passwordError"></span>
+            </div>
+            
+            <button type="submit" class="submit-btn">Зарегистрироваться</button>
+        </form>
+    </div>
+    
+    <script src="carousel.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = [
+                'image1.jpg',
+                'image2.jpg'
+            ];
+            
+            createCarousel(images, '#imageCarousel', {
+                interval: 3000
+            });
+            
+            const form = document.getElementById('registrationForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                clearErrors();
+                
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                
+                let isValid = true;
+                
+                if (name.length < 2) {
+                    showError('nameError', 'Имя должно содержать минимум 2 символа');
+                    isValid = false;
+                } else if (!/^[a-zA-Zа-яА-ЯёЁ\s]+$/.test(name)) {
+                    showError('nameError', 'Имя может содержать только буквы и пробелы');
+                    isValid = false;
+                }
+                
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    showError('emailError', 'Введите корректный email');
+                    isValid = false;
+                }
+                
+                if (password.length < 8) {
+                    showError('passwordError', 'Пароль должен быть не менее 8 символов');
+                    isValid = false;
+                } else if (!/\d/.test(password)) {
+                    showError('passwordError', 'Пароль должен содержать хотя бы одну цифру');
+                    isValid = false;
+                } else if (!/[A-Z]/.test(password)) {
+                    showError('passwordError', 'Пароль должен содержать хотя бы одну заглавную букву');
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    alert('Форма успешно отправлена!');
+                    form.reset();
+                }
+            });
+            
+            function showError(elementId, message) {
+                const errorElement = document.getElementById(elementId);
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+                document.getElementById(elementId.replace('Error', '')).classList.add('invalid');
+            }
+            
+            function clearErrors() {
+                const errors = document.querySelectorAll('.error-message');
+                errors.forEach(error => {
+                    error.textContent = '';
+                    error.style.display = 'none';
+                });
+                
+                const inputs = document.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.classList.remove('invalid');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
