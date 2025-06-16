@@ -1,0 +1,128 @@
+/* Базовые стили */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff9e8;
+    color: #333;
+    line-height: 1.6;
+}
+
+.header {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #d35400;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Grid контейнер для рецепта */
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+/* Карточки ингредиентов и инструкций */
+.ingredients-card, .instructions-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #e67e22;
+    border-bottom: 1px solid #e67e22;
+    padding-bottom: 5px;
+}
+
+/* Стили для списков */
+.ingredients-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.ingredients-list li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.instructions-list {
+    padding-left: 20px;
+}
+
+.instructions-list li {
+    margin-bottom: 10px;
+}
+
+/* Flex контейнер для совета */
+.tip-animation {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.tip {
+    background-color: #fff0cc;
+    padding: 15px;
+    border-left: 4px solid #e67e22;
+    font-style: italic;
+    max-width: 600px;
+    width: 100%;
+}
+
+/* Анимация */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+.tip-animation:hover {
+    animation: pulse 1s infinite;
+}
+
+/* Футер */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #d35400;
+    color: white;
+}
+
+/* Медиазапросы для адаптивности */
+@media (max-width: 768px) {
+    .recipe-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .ingredients-card, .instructions-card {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 0 10px;
+    }
+    
+    h2 {
+        font-size: 1.2rem;
+    }
+    
+    .tip {
+        padding: 10px;
+    }
+}
